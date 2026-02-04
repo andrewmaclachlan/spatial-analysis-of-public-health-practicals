@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Spatial analysis of public health data - 3&nbsp; Spatial models</title>
+<title>Spatial analysis of public health data - 4&nbsp; Spatial models</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./05_food_bank_accessibility.html" rel="next">
-<link href="./02_point_patterns.html" rel="prev">
+<link href="./03_obesity.html" rel="prev">
 <link href="./assets/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -168,7 +168,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04_spatial_models.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Spatial models</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04_spatial_models.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Spatial models</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -206,20 +206,26 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./03_obesity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exploring the Spatial Distribution of Points in the Presence of Covariates - Fast-Food Outlets and Schools in London</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./04_spatial_models.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Spatial models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Spatial models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05_food_bank_accessibility.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Food bank accessibility</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Food bank accessibility</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06_datasets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Datasets</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Datasets</span></span></a>
   </div>
 </li>
     </ul>
@@ -232,31 +238,31 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">3.1</span> Introduction</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">3.2</span> Data</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">4.1</span> Introduction</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">4.2</span> Data</a>
   <ul class="collapse">
-  <li><a href="#loading" id="toc-loading" class="nav-link" data-scroll-target="#loading"><span class="header-section-number">3.2.1</span> Loading</a></li>
-  <li><a href="#wrangle" id="toc-wrangle" class="nav-link" data-scroll-target="#wrangle"><span class="header-section-number">3.2.2</span> Wrangle</a></li>
+  <li><a href="#loading" id="toc-loading" class="nav-link" data-scroll-target="#loading"><span class="header-section-number">4.2.1</span> Loading</a></li>
+  <li><a href="#wrangle" id="toc-wrangle" class="nav-link" data-scroll-target="#wrangle"><span class="header-section-number">4.2.2</span> Wrangle</a></li>
   </ul></li>
-  <li><a href="#regression" id="toc-regression" class="nav-link" data-scroll-target="#regression"><span class="header-section-number">3.3</span> Regression</a>
+  <li><a href="#regression" id="toc-regression" class="nav-link" data-scroll-target="#regression"><span class="header-section-number">4.3</span> Regression</a>
   <ul class="collapse">
-  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation"><span class="header-section-number">3.3.1</span> Interpretation</a></li>
-  <li><a href="#assumptions-underpinning-linear-regression" id="toc-assumptions-underpinning-linear-regression" class="nav-link" data-scroll-target="#assumptions-underpinning-linear-regression"><span class="header-section-number">3.3.2</span> Assumptions underpinning linear regression</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation"><span class="header-section-number">4.3.1</span> Interpretation</a></li>
+  <li><a href="#assumptions-underpinning-linear-regression" id="toc-assumptions-underpinning-linear-regression" class="nav-link" data-scroll-target="#assumptions-underpinning-linear-regression"><span class="header-section-number">4.3.2</span> Assumptions underpinning linear regression</a></li>
   </ul></li>
-  <li><a href="#spatial-regression-models" id="toc-spatial-regression-models" class="nav-link" data-scroll-target="#spatial-regression-models"><span class="header-section-number">3.4</span> Spatial regression models</a>
+  <li><a href="#spatial-regression-models" id="toc-spatial-regression-models" class="nav-link" data-scroll-target="#spatial-regression-models"><span class="header-section-number">4.4</span> Spatial regression models</a>
   <ul class="collapse">
-  <li><a href="#the-spatial-lag-lagged-dependent-variable-model" id="toc-the-spatial-lag-lagged-dependent-variable-model" class="nav-link" data-scroll-target="#the-spatial-lag-lagged-dependent-variable-model"><span class="header-section-number">3.4.1</span> The spatial lag (lagged dependent variable) model</a></li>
-  <li><a href="#the-spatial-error-model" id="toc-the-spatial-error-model" class="nav-link" data-scroll-target="#the-spatial-error-model"><span class="header-section-number">3.4.2</span> The spatial error model</a></li>
-  <li><a href="#key-advice" id="toc-key-advice" class="nav-link" data-scroll-target="#key-advice"><span class="header-section-number">3.4.3</span> Key advice</a></li>
+  <li><a href="#the-spatial-lag-lagged-dependent-variable-model" id="toc-the-spatial-lag-lagged-dependent-variable-model" class="nav-link" data-scroll-target="#the-spatial-lag-lagged-dependent-variable-model"><span class="header-section-number">4.4.1</span> The spatial lag (lagged dependent variable) model</a></li>
+  <li><a href="#the-spatial-error-model" id="toc-the-spatial-error-model" class="nav-link" data-scroll-target="#the-spatial-error-model"><span class="header-section-number">4.4.2</span> The spatial error model</a></li>
+  <li><a href="#key-advice" id="toc-key-advice" class="nav-link" data-scroll-target="#key-advice"><span class="header-section-number">4.4.3</span> Key advice</a></li>
   </ul></li>
-  <li><a href="#gwr" id="toc-gwr" class="nav-link" data-scroll-target="#gwr"><span class="header-section-number">3.5</span> GWR</a>
+  <li><a href="#gwr" id="toc-gwr" class="nav-link" data-scroll-target="#gwr"><span class="header-section-number">4.5</span> GWR</a>
   <ul class="collapse">
-  <li><a href="#bandwidth" id="toc-bandwidth" class="nav-link" data-scroll-target="#bandwidth"><span class="header-section-number">3.5.1</span> Bandwidth</a></li>
-  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model"><span class="header-section-number">3.5.2</span> Model</a></li>
-  <li><a href="#map-coefficients" id="toc-map-coefficients" class="nav-link" data-scroll-target="#map-coefficients"><span class="header-section-number">3.5.3</span> Map coefficients</a></li>
-  <li><a href="#significance" id="toc-significance" class="nav-link" data-scroll-target="#significance"><span class="header-section-number">3.5.4</span> Significance</a></li>
+  <li><a href="#bandwidth" id="toc-bandwidth" class="nav-link" data-scroll-target="#bandwidth"><span class="header-section-number">4.5.1</span> Bandwidth</a></li>
+  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model"><span class="header-section-number">4.5.2</span> Model</a></li>
+  <li><a href="#map-coefficients" id="toc-map-coefficients" class="nav-link" data-scroll-target="#map-coefficients"><span class="header-section-number">4.5.3</span> Map coefficients</a></li>
+  <li><a href="#significance" id="toc-significance" class="nav-link" data-scroll-target="#significance"><span class="header-section-number">4.5.4</span> Significance</a></li>
   </ul></li>
-  <li><a href="#including-spatial-features" id="toc-including-spatial-features" class="nav-link" data-scroll-target="#including-spatial-features"><span class="header-section-number">3.6</span> Including spatial features</a></li>
+  <li><a href="#including-spatial-features" id="toc-including-spatial-features" class="nav-link" data-scroll-target="#including-spatial-features"><span class="header-section-number">4.6</span> Including spatial features</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/andrewmaclachlan/spatial-analysis-of-public-health-data-25/edit/main/04_spatial_models.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/andrewmaclachlan/spatial-analysis-of-public-health-data-25/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -265,7 +271,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Spatial models</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Spatial models</span></h1>
 </div>
 
 
@@ -304,14 +310,14 @@ Note
 </ul>
 </div>
 </div>
-<section id="introduction" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">3.1</span> Introduction</h2>
+<section id="introduction" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">4.1</span> Introduction</h2>
 <p>In this practical you will be introduced to a suite of different models that will allow you to test a variety of research questions and hypotheses through modelling the associations between two or more spatially referenced variables.</p>
 <p>In 2023 New Zealand scrapped an anti-smoking law that would mean a generational smoking bad for anyone born after 2008. Instead they limited the number of retailers in 2024 from 6,000 to 600 across the country. With a maximum number per area according to the table set on <a href="https://www.health.govt.nz/publications/maximum-numbers-of-approved-smoked-tobacco-retail-premises-permitted-in-areas-of-new-zealand">Ministry of Health website</a>. Here we will explore the factors that might affect smoking in New Zealand and see if they vary spatially. Obviously this new legislation may (most likely will) influence behaviors from 2024.</p>
 <p>This practical will walk you through the common steps that you should go through when building a regression model using spatial data to test a stated research hypothesis; from carrying out some descriptive visualisation and summary statistics, to interpreting the results and using the outputs of the model to inform your next steps.</p>
 </section>
-<section id="data" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="data"><span class="header-section-number">3.2</span> Data</h2>
+<section id="data" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="data"><span class="header-section-number">4.2</span> Data</h2>
 <p>This is the same has homework 1….and note, we <strong><em>could use 2023 data</em></strong> as described in the homework 1 task.</p>
 <ul>
 <li><p>Go to the <a href="https://datafinder.stats.govt.nz/">New Zealand spatial data portal</a> and download the file Territorial Authority 2018 (generalised), <a href="https://www.localcouncils.govt.nz/lgip.nsf/wpg_url/About-Local-Government-Local-Government-In-New-Zealand-Councils-roles-and-functions#TerritorialAuthorities(District%20and%20City%20Councils)">these are city or district councils</a>. Make sure it’s the Territorial Authority 2018 data <strong>not</strong> SA1.</p></li>
@@ -328,8 +334,8 @@ Note
 <figcaption>NZ geographies</figcaption>
 </figure>
 </div>
-<section id="loading" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="loading"><span class="header-section-number">3.2.1</span> Loading</h3>
+<section id="loading" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="loading"><span class="header-section-number">4.2.1</span> Loading</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -348,8 +354,8 @@ Projected CRS: NZGD2000 / New Zealand Transverse Mercator 2000</code></pre>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>census <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"prac4_data/SA1_census/Individual_part2_totalNZ-wide_format_updated_16-7-20.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="wrangle" class="level3" data-number="3.2.2">
-<h3 data-number="3.2.2" class="anchored" data-anchor-id="wrangle"><span class="header-section-number">3.2.2</span> Wrangle</h3>
+<section id="wrangle" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="wrangle"><span class="header-section-number">4.2.2</span> Wrangle</h3>
 <p>The <code>.csv</code> we have loaded contains all the data from the week 1 excel homework in a wide format - that means all the SA1s, SA2s etc are are a new row making a huge data file. Normally i would suggest a cool data sci-ency way to pull out our Territorial Authorities, however i can’t see anything that would work. For example, we could try and detect part of a string like “City” or “District” but they appear in other geographies.</p>
 <p>So, until i can think or a better way we are resigned to subsetting by rows!</p>
 <div class="cell">
@@ -482,8 +488,8 @@ Projected CRS: NZGD2000 / New Zealand Transverse Mercator 2000</code></pre>
 </div>
 </section>
 </section>
-<section id="regression" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="regression"><span class="header-section-number">3.3</span> Regression</h2>
+<section id="regression" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="regression"><span class="header-section-number">4.3</span> Regression</h2>
 <p>In the graph above, I used a method called ‘lm’ in the <code>stat_smooth()</code> function in <code>ggplot2</code> to draw the regression line. ‘lm’ stands for ‘linear model’ and is a standard function in R for running linear regression models. Use the help system to find out more about <code>lm</code> - <code>?lm</code></p>
 <p>Below is the code that could be used to draw the blue line in our scatter plot. Note, the tilde <code>~</code> symbol means “is modeled by”.</p>
 <div class="cell">
@@ -519,8 +525,8 @@ Multiple R-squared:  0.4795,    Adjusted R-squared:  0.4716
 F-statistic:  60.8 on 1 and 66 DF,  p-value: 6.097e-11</code></pre>
 </div>
 </div>
-<section id="interpretation" class="level3" data-number="3.3.1">
-<h3 data-number="3.3.1" class="anchored" data-anchor-id="interpretation"><span class="header-section-number">3.3.1</span> Interpretation</h3>
+<section id="interpretation" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="interpretation"><span class="header-section-number">4.3.1</span> Interpretation</h3>
 <p>In running a regression model, we are effectively trying to test (disprove) our null hypothesis. If our null hypothesis was true, then we would expect our coefficients to = 0.</p>
 <p>In the output summary of the model above, there are a number of features you should pay attention to:</p>
 <p><strong>Coefficient Estimates</strong> - these are the <span class="math inline">\(\beta_0\)</span> (intercept) and <span class="math inline">\(\beta_1\)</span> (slope) parameter estimates from Equation 1. You will notice that at <span class="math inline">\(\beta_0 = 1.2\)</span> and <span class="math inline">\(\beta_1 = 0.64\)</span> they are pretty close (not awful!) to the estimates of 4 and 0.5 that we read from the graph earlier, but more precise.</p>
@@ -532,10 +538,10 @@ F-statistic:  60.8 on 1 and 66 DF,  p-value: 6.097e-11</code></pre>
 <p>In <code>r</code> the codes <code>***, **, **, .</code> are used to indicate significance. We generally want at least a single <code>*</code> next to our coefficient for it to be worth considering.</p>
 <p><strong>R-Squared</strong> - This can be thought of as an indication of how good your model is - a measure of ‘goodness-of-fit’ (of which there are a number of others). <span class="math inline">\(r^2\)</span> is quite an intuitive measure of fit as it ranges between 0 and 1 and can be thought of as the % of variation in the dependent variable (in our case percentage of smokers) explained by variation in the independent variable(s). In our example, an <span class="math inline">\(r^2\)</span> value of 0.47 indicates that around 47% of the variation in percentage of smokers can be explained by variation in percentage with no qualifications. In other words, this is quite a good model. The <span class="math inline">\(r^2\)</span> value will increase as more independent explanatory variables are added into the model, so where this might be an issue, the adjusted r-squared value can be used to account for this affect.</p>
 </section>
-<section id="assumptions-underpinning-linear-regression" class="level3" data-number="3.3.2">
-<h3 data-number="3.3.2" class="anchored" data-anchor-id="assumptions-underpinning-linear-regression"><span class="header-section-number">3.3.2</span> Assumptions underpinning linear regression</h3>
-<section id="assumption-1---there-is-a-linear-relationship-between-the-dependent-and-independent-variables" class="level4" data-number="3.3.2.1">
-<h4 data-number="3.3.2.1" class="anchored" data-anchor-id="assumption-1---there-is-a-linear-relationship-between-the-dependent-and-independent-variables"><span class="header-section-number">3.3.2.1</span> Assumption 1 - there is a linear relationship between the dependent and independent variables</h4>
+<section id="assumptions-underpinning-linear-regression" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="assumptions-underpinning-linear-regression"><span class="header-section-number">4.3.2</span> Assumptions underpinning linear regression</h3>
+<section id="assumption-1---there-is-a-linear-relationship-between-the-dependent-and-independent-variables" class="level4" data-number="4.3.2.1">
+<h4 data-number="4.3.2.1" class="anchored" data-anchor-id="assumption-1---there-is-a-linear-relationship-between-the-dependent-and-independent-variables"><span class="header-section-number">4.3.2.1</span> Assumption 1 - there is a linear relationship between the dependent and independent variables</h4>
 <p>The best way to test for this assumption is to plot a scatter plot similar to the one created earlier. It may not always be practical to create a series of scatter plots, so one quick way to check that a linear relationship is probable is to look at the frequency distributions of the variables. If they are normally distributed, then there is a good chance that if the two variables are in some way correlated, this will be a linear relationship.</p>
 <p>For example, look at the frequency distributions of our two variables earlier:</p>
 <div class="cell">
@@ -578,8 +584,8 @@ F-statistic:  60.8 on 1 and 66 DF,  p-value: 6.097e-11</code></pre>
 <p><strong>However</strong> you will be changing the relationship of your data - it won’t be linear anymore! This could improve your model but is at the expense of interpretation. Aside from log transformation which has the rules in the link above.</p>
 <p>Typically if you do a power transformation you can keep the direction of the relationship (positive or negative) and the t-value will give an idea of the importance of the variable in the model - that’s about it!</p>
 </section>
-<section id="assumption-2---the-residuals-in-your-model-should-be-normally-distributed" class="level4" data-number="3.3.2.2">
-<h4 data-number="3.3.2.2" class="anchored" data-anchor-id="assumption-2---the-residuals-in-your-model-should-be-normally-distributed"><span class="header-section-number">3.3.2.2</span> Assumption 2 - the residuals in your model should be normally distributed</h4>
+<section id="assumption-2---the-residuals-in-your-model-should-be-normally-distributed" class="level4" data-number="4.3.2.2">
+<h4 data-number="4.3.2.2" class="anchored" data-anchor-id="assumption-2---the-residuals-in-your-model-should-be-normally-distributed"><span class="header-section-number">4.3.2.2</span> Assumption 2 - the residuals in your model should be normally distributed</h4>
 <p>This assumption is easy to check. When we ran our <code>model1</code> earlier, one of the outputs stored in our <code>model1</code> object is the residual value for each case (authority) in your dataset. We can access these values using <code>augment()</code> from <code>broom</code> which will add model output to the original data…</p>
 <p>We can plot these as a histogram and see if there is a normal distribution:</p>
 <div class="cell">
@@ -605,8 +611,8 @@ F-statistic:  60.8 on 1 and 66 DF,  p-value: 6.097e-11</code></pre>
 </div>
 <p>Examining the histogram above, i am happy this is rather normal although there is evidently an outlier in our data somewhere.</p>
 </section>
-<section id="assumption-3---no-multicolinearity-in-the-independent-variables" class="level4" data-number="3.3.2.3">
-<h4 data-number="3.3.2.3" class="anchored" data-anchor-id="assumption-3---no-multicolinearity-in-the-independent-variables"><span class="header-section-number">3.3.2.3</span> Assumption 3 - no multicolinearity in the independent variables</h4>
+<section id="assumption-3---no-multicolinearity-in-the-independent-variables" class="level4" data-number="4.3.2.3">
+<h4 data-number="4.3.2.3" class="anchored" data-anchor-id="assumption-3---no-multicolinearity-in-the-independent-variables"><span class="header-section-number">4.3.2.3</span> Assumption 3 - no multicolinearity in the independent variables</h4>
 <p>Now, the regression model we have be experimenting with so far is a simple bivariate (two variable) model. One of the nice things about regression modelling is while we can only easily visualise linear relationships in a two (or maximum 3) dimension scatter plot, mathematically, we can have as many dimensions / variables as we like.</p>
 <p>As such, we could extend model 1 into a multiple regression model by adding some more explanatory variables that we think could affect the percentage of people smoking…</p>
 <div class="cell">
@@ -743,8 +749,8 @@ F-statistic: 61.86 on 2 and 65 DF,  p-value: 9.037e-16</code></pre>
 </div>
 </div>
 </section>
-<section id="assumption-4---homoscedasticity" class="level4" data-number="3.3.2.4">
-<h4 data-number="3.3.2.4" class="anchored" data-anchor-id="assumption-4---homoscedasticity"><span class="header-section-number">3.3.2.4</span> Assumption 4 - homoscedasticity</h4>
+<section id="assumption-4---homoscedasticity" class="level4" data-number="4.3.2.4">
+<h4 data-number="4.3.2.4" class="anchored" data-anchor-id="assumption-4---homoscedasticity"><span class="header-section-number">4.3.2.4</span> Assumption 4 - homoscedasticity</h4>
 <p>Homoscedasticity means that the errors/residuals in the model exhibit constant / homogeneous variance, if they don’t, then we would say that there is hetroscedasticity present. Why does this matter? Andy Field does a much better job of explaining this in <a href="https://www.discoveringstatistics.com/tag/homoscedasticity/">discovering statistics</a> — but essentially, if your errors do not have constant variance, then your parameter estimates could be wrong, as could the estimates of their significance.</p>
 <p>The best way to check for homo/hetroscedasticity is to plot the residuals in the model against the predicted values. We are looking for a cloud of points with no apparent patterning to them.</p>
 <div class="cell">
@@ -784,11 +790,11 @@ F-statistic: 61.86 on 2 and 65 DF,  p-value: 9.037e-16</code></pre>
 </div>
 </div>
 </section>
-<section id="assumption-5---independence-of-errors" class="level4" data-number="3.3.2.5">
-<h4 data-number="3.3.2.5" class="anchored" data-anchor-id="assumption-5---independence-of-errors"><span class="header-section-number">3.3.2.5</span> Assumption 5 - independence of errors</h4>
+<section id="assumption-5---independence-of-errors" class="level4" data-number="4.3.2.5">
+<h4 data-number="4.3.2.5" class="anchored" data-anchor-id="assumption-5---independence-of-errors"><span class="header-section-number">4.3.2.5</span> Assumption 5 - independence of errors</h4>
 <p>This assumption simply states that the residual values (errors) in your model must not be correlated in any way. If they are, then they exhibit <em>autocorrelation</em> which suggests that something might be going on in the background that we have not sufficiently accounted for in our model.</p>
-<section id="standard-autocorrelation" class="level5" data-number="3.3.2.5.1">
-<h5 data-number="3.3.2.5.1" class="anchored" data-anchor-id="standard-autocorrelation"><span class="header-section-number">3.3.2.5.1</span> Standard autocorrelation</h5>
+<section id="standard-autocorrelation" class="level5" data-number="4.3.2.5.1">
+<h5 data-number="4.3.2.5.1" class="anchored" data-anchor-id="standard-autocorrelation"><span class="header-section-number">4.3.2.5.1</span> Standard autocorrelation</h5>
 <p>If you are running a regression model on data that do not have explicit space or time dimensions, then the standard test for autocorrelation would be the Durbin-Watson test.</p>
 <p>This tests whether residuals are correlated and produces a summary statistic that ranges between 0 and 4, with 2 signifying no autocorrelation. A value greater than 2 suggesting negative autocorrelation and and value of less than 2 indicating positive autocorrelation.</p>
 <p>In his <a href="https://www.discoveringstatistics.com/books/discovering-statistics-using-r/">excellent text book</a>, Andy Field suggests that you should be concerned with Durbin-Watson test statistics &lt;1 or &gt;3. So let’s see:</p>
@@ -800,13 +806,13 @@ F-statistic: 61.86 on 2 and 65 DF,  p-value: 9.037e-16</code></pre>
 <pre><code># A tibble: 1 × 5
   statistic p.value autocorrelation method             alternative
       &lt;dbl&gt;   &lt;dbl&gt;           &lt;dbl&gt; &lt;chr&gt;              &lt;chr&gt;      
-1      1.41  0.0220           0.227 Durbin-Watson Test two.sided  </code></pre>
+1      1.41  0.0100           0.227 Durbin-Watson Test two.sided  </code></pre>
 </div>
 </div>
 <p>As you can see, the DW statistics for our model is 1.41, so some indication of autocorrelation, but perhaps nothing to worry about.</p>
 </section>
-<section id="spatial-autocorrelation" class="level5" data-number="3.3.2.5.2">
-<h5 data-number="3.3.2.5.2" class="anchored" data-anchor-id="spatial-autocorrelation"><span class="header-section-number">3.3.2.5.2</span> Spatial autocorrelation</h5>
+<section id="spatial-autocorrelation" class="level5" data-number="4.3.2.5.2">
+<h5 data-number="4.3.2.5.2" class="anchored" data-anchor-id="spatial-autocorrelation"><span class="header-section-number">4.3.2.5.2</span> Spatial autocorrelation</h5>
 <p><strong>HOWEVER</strong></p>
 <p>We are using spatially referenced data and as such we should check for <em>spatial</em>-autocorrelation.</p>
 <p>The first test we should carry out is to map the residuals to see if there are any apparent obvious patterns:</p>
@@ -918,7 +924,7 @@ F-statistic: 65.68 on 3 and 62 DF,  p-value: &lt; 2.2e-16</code></pre>
 <pre><code># A tibble: 1 × 5
   statistic p.value autocorrelation method             alternative
       &lt;dbl&gt;   &lt;dbl&gt;           &lt;dbl&gt; &lt;chr&gt;              &lt;chr&gt;      
-1      1.27       0           0.345 Durbin-Watson Test two.sided  </code></pre>
+1      1.27 0.00200           0.345 Durbin-Watson Test two.sided  </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#and for future use, write the residuals out</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>model3_residuals <span class="ot">&lt;-</span> model3 <span class="sc">%&gt;%</span></span>
@@ -1037,10 +1043,10 @@ F-statistic: 65.68 on 3 and 62 DF,  p-value: &lt; 2.2e-16</code></pre>
 </section>
 </section>
 </section>
-<section id="spatial-regression-models" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="spatial-regression-models"><span class="header-section-number">3.4</span> Spatial regression models</h2>
-<section id="the-spatial-lag-lagged-dependent-variable-model" class="level3" data-number="3.4.1">
-<h3 data-number="3.4.1" class="anchored" data-anchor-id="the-spatial-lag-lagged-dependent-variable-model"><span class="header-section-number">3.4.1</span> The spatial lag (lagged dependent variable) model</h3>
+<section id="spatial-regression-models" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="spatial-regression-models"><span class="header-section-number">4.4</span> Spatial regression models</h2>
+<section id="the-spatial-lag-lagged-dependent-variable-model" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="the-spatial-lag-lagged-dependent-variable-model"><span class="header-section-number">4.4.1</span> The spatial lag (lagged dependent variable) model</h3>
 <p>Running a Moran’s I test on the residuals from the model suggested that there might be some spatial autocorrelation occurring suggesting that places where the model over-predicted the percent of people smoking (those shown in blue in the map above with negative residuals) and under-predicted (those shown in red/orange) occasionally were near to each other.</p>
 <p>Ward and Gleditsch (2008) describe this situation (where the value of our <span class="math inline">\(y\)</span> dependent variable - percent people who smoke - may be influenced by neighbouring values) and suggest the way to deal with it is to incorporate a <em>spatially-lagged</em> version of this variable amongst the independent variables on the right-hand side of the equation. In this case, Equation 1 would be updated to look like this:</p>
 <p><span class="math display">\[y_i = \beta_0 + \beta_1x_i + \rho w_i.y_i + \epsilon_i\]</span></p>
@@ -1050,8 +1056,8 @@ F-statistic: 65.68 on 3 and 62 DF,  p-value: &lt; 2.2e-16</code></pre>
 <li><span class="math inline">\(\rho\)</span> denotes (represents) the spatial lag</li>
 </ul>
 <p>For more details on running a spatially lagged regression model and interpreting the outputs, see the chapter on spatially lagged models by <a href="https://methods.sagepub.com/book/spatial-regression-models/n2.xml">Ward and Gleditsch (2008) available online</a></p>
-<section id="queens-case-lag" class="level4" data-number="3.4.1.1">
-<h4 data-number="3.4.1.1" class="anchored" data-anchor-id="queens-case-lag"><span class="header-section-number">3.4.1.1</span> Queen’s case lag</h4>
+<section id="queens-case-lag" class="level4" data-number="4.4.1.1">
+<h4 data-number="4.4.1.1" class="anchored" data-anchor-id="queens-case-lag"><span class="header-section-number">4.4.1.1</span> Queen’s case lag</h4>
 <p>Now run a spatially-lagged regression model with a queen’s case weights matrix</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spatialreg)</span>
@@ -1108,8 +1114,8 @@ F-statistic: 65.68 on 3 and 62 DF,  p-value: &lt; 2.2e-16</code></pre>
 <li><p>Wald test (often not used in interpretation of lag models), it tests if the new parameters (the lag) should be included it in the model…if significant then the new variable improves the model fit and needs to be included. This is similar to the LR test and i’ve not seen a situation where one is significant and the other not. Probably why it’s not used!</p></li>
 </ul>
 <p>In this case we have spatial autocorrelation in the residuals of the model, but the model is not an improvement on OLS — this can also be confirmed with the AIC score (we cover that later) but the lower it is the better. Here it is 293, in OLS (model 3) it was 292. The Log likelihood for model 3 (OLS) was -141, here it is -140.</p>
-<section id="lag-impacts" class="level5" data-number="3.4.1.1.1">
-<h5 data-number="3.4.1.1.1" class="anchored" data-anchor-id="lag-impacts"><span class="header-section-number">3.4.1.1.1</span> Lag impacts</h5>
+<section id="lag-impacts" class="level5" data-number="4.4.1.1.1">
+<h5 data-number="4.4.1.1.1" class="anchored" data-anchor-id="lag-impacts"><span class="header-section-number">4.4.1.1.1</span> Lag impacts</h5>
 <p><strong>Warning</strong> according to Solymosi and Medina (2022) you must not not compare the coefficients of this to regular OLS…<strong>Why ?</strong></p>
 <p>Well in OLS recall we can use the coefficients to say…a 1 unit change in the independent variable means a drop or rise in the dependent (for a 1% increase in percent with no qualifications the percent of smokers rises by 0.64 percent). <strong>BUT</strong> here the model is not consistent as the observations will change based on the weight matrix neighbours selected which might vary (almost certainly in a distance based matrix). This means we have a direct effect (standard OLS) and then an indirect effect in the model (impact of the spatial lag).</p>
 <p>We can compute these direct and indirect effects using code from Solymosi and Medina (2022) and the <a href="https://r-spatial.github.io/spatialreg/reference/impacts.html">spatialreg</a> package. Here the <code>impacts()</code> function calculates the impact of the spatial lag. We can fit this to our entire spatial weights….</p>
@@ -1142,8 +1148,8 @@ census_2018_total_personal_income_median_curp_15years_and_over dy/dx -0.00034077
 </section>
 </section>
 </section>
-<section id="the-spatial-error-model" class="level3" data-number="3.4.2">
-<h3 data-number="3.4.2" class="anchored" data-anchor-id="the-spatial-error-model"><span class="header-section-number">3.4.2</span> The spatial error model</h3>
+<section id="the-spatial-error-model" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="the-spatial-error-model"><span class="header-section-number">4.4.2</span> The spatial error model</h3>
 <p>Another way of coneptualising spatial dependence in regression models is not through values of the dependent variable in some areas affecting those in neighbouring areas (as they do in the spatial lag model), but in treating the spatial autocorrelation in the residuals as something that we need to deal with, perhaps reflecting some spatial autocorrelation amongst unobserved independent variables or some other mis-specification of the model.</p>
 <p>Ward and Gleditsch (2008) characterise this model as seeing spatial autocorrelation as a nuisance rather than being particularly informative, however it can still be handled within the model, albeit slightly differently.</p>
 <p>The spatial error model can be written:</p>
@@ -1182,18 +1188,18 @@ census_2018_total_personal_income_median_curp_15years_and_over dy/dx -0.00034077
 <p>The <span class="math inline">\(\lambda\)</span> parameter in the spatial error model is larger than the standard error and is significant, but the <span class="math inline">\(\rho\)</span> parameter is not larger than the standard error and is not significant.</p>
 <p>So we can conclude that spatial dependence <em>might</em> be borne in mind when interpreting the results of this regression model. This suggests to us that the smoking is not influenced by neighbouring polygons (or smokers) but the errors between the neighours are related and we may have some mis-specification of the model - e.g.&nbsp;a missing variable.</p>
 </section>
-<section id="key-advice" class="level3" data-number="3.4.3">
-<h3 data-number="3.4.3" class="anchored" data-anchor-id="key-advice"><span class="header-section-number">3.4.3</span> Key advice</h3>
+<section id="key-advice" class="level3" data-number="4.4.3">
+<h3 data-number="4.4.3" class="anchored" data-anchor-id="key-advice"><span class="header-section-number">4.4.3</span> Key advice</h3>
 <p>The <strong>lag</strong> model accounts for situations where the value of the dependent variable in one area might be associated with or influenced by the values of that variable in neighbouring zones (however we choose to define neighbouring in our spatial weights matrix). With our example, smoking in one neighbourhood might be related to smoking in another. You may be able to think of other examples where similar associations may occur. You might run a lag model if you identify spatial autocorrelation in the dependent variable (closer spatial units have similar values) with Moran’s I.</p>
 <p>The <strong>error</strong> model deals with spatial autocorrelation (closer spatial units have similar values) of the residuals (vertical distance between your point and line of model – errors – over-predictions or under-predictions) again, potentially revealed though a Moran’s I analysis. The error model is not assuming that neighbouring independent variables are influencing the dependent variable but rather the assumption is of an <strong>issue with the specification of the model or the data used</strong> (e.g.&nbsp;clustered errors are due to some un-observed clustered variables not included in the model). For example, smoking prevelance may be similar in bordering neighbourhoods because residents in these neighbouring places come from similar socio-economic backgrounds and this was not included as an independent variable in the original model. There is no spatial process (no cross authority interaction) just a cluster of an un-accounted for but influential variable.</p>
 </section>
 </section>
-<section id="gwr" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="gwr"><span class="header-section-number">3.5</span> GWR</h2>
+<section id="gwr" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="gwr"><span class="header-section-number">4.5</span> GWR</h2>
 <p>Rather than spatial autocorrelation causing problems with our model, it might be that a “global” regression model does not capture the full story. In some parts of our study area, the relationships between the dependent and independent variable may not exhibit the same slope coefficient.</p>
 <p>If this occurs, then we have <strong><em>’non-stationarity</em></strong>’ - this is when the global model does not represent the relationships between variables that might vary locally.</p>
-<section id="bandwidth" class="level3" data-number="3.5.1">
-<h3 data-number="3.5.1" class="anchored" data-anchor-id="bandwidth"><span class="header-section-number">3.5.1</span> Bandwidth</h3>
+<section id="bandwidth" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="bandwidth"><span class="header-section-number">4.5.1</span> Bandwidth</h3>
 <p>This part of the practical will only skirt the edges of GWR, for much more detail you should visit the <a href="http://gwr.nuim.ie/">GWR website</a> which is produced and maintained by Prof Chris Brunsdon and Dr Martin Charlton who originally developed the technique.</p>
 <p>I should also acknowledge <a href="http://www.bris.ac.uk/cmpo/events/2009/segregation/gwr.pdf">the guide on GWR produced by the University of Bristol</a>, which was a great help when producing this exercise.</p>
 <div class="cell">
@@ -1269,8 +1275,8 @@ Tip
 </div>
 </div>
 </section>
-<section id="model" class="level3" data-number="3.5.2">
-<h3 data-number="3.5.2" class="anchored" data-anchor-id="model"><span class="header-section-number">3.5.2</span> Model</h3>
+<section id="model" class="level3" data-number="4.5.2">
+<h3 data-number="4.5.2" class="anchored" data-anchor-id="model"><span class="header-section-number">4.5.2</span> Model</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co">#run the gwr model</span></span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>gwr_model <span class="ot">=</span> <span class="fu">gwr</span>(percent_regular_smoker <span class="sc">~</span></span>
@@ -1352,8 +1358,8 @@ Quasi-global R2: 0.9204215 </code></pre>
 <p>The lower the value the better the better the model fit is, see <a href="https://www.scribbr.com/statistics/akaike-information-criterion/">scribbr</a> if you want to know more here..although this is enough to get you through most situations.</p>
 <p>Coefficient ranges can also be seen for the other variables and they suggest some interesting spatial patterning.</p>
 </section>
-<section id="map-coefficients" class="level3" data-number="3.5.3">
-<h3 data-number="3.5.3" class="anchored" data-anchor-id="map-coefficients"><span class="header-section-number">3.5.3</span> Map coefficients</h3>
+<section id="map-coefficients" class="level3" data-number="4.5.3">
+<h3 data-number="4.5.3" class="anchored" data-anchor-id="map-coefficients"><span class="header-section-number">4.5.3</span> Map coefficients</h3>
 <p>To explore this we can plot the GWR coefficients for different variables. Firstly we can attach the coefficients to our original dataframe - this can be achieved simply as the coefficients for each territoiral authority appear in the same order in our spatial points dataframe as they do in the original dataframe.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(gwr_model<span class="sc">$</span>SDF)</span>
@@ -1423,8 +1429,8 @@ Multiple palettes called "rd_bu" found: "brewer.rd_bu", "matplotlib.rd_bu". The 
 </div>
 <p>Taking the first coefficient we see that this varies across the country. A possible trend to explore further might be the inclusion or distance to tobacco retailers - both Wellington and Auckland have some of the highest coefficients, meaning a 1 unit (percent) change in no qualification returns a higher rise in percent of people smoking.</p>
 </section>
-<section id="significance" class="level3" data-number="3.5.4">
-<h3 data-number="3.5.4" class="anchored" data-anchor-id="significance"><span class="header-section-number">3.5.4</span> Significance</h3>
+<section id="significance" class="level3" data-number="4.5.4">
+<h3 data-number="4.5.4" class="anchored" data-anchor-id="significance"><span class="header-section-number">4.5.4</span> Significance</h3>
 <p>Of course, these results may not be statistically significant across the whole of New Zealand. Roughly speaking, if a coefficient estimate is more than 2 standard errors away from zero, then it is “statistically significant”.</p>
 <p>Remember from earlier the standard error is “the average amount the coefficient varies from the average value of the dependent variable (its standard deviation). So, for 1% increase in percent with no qualifications, while the model says we might expect GSCE scores to drop by 0.6%, this might vary, on average, by about 0.08%. As a rule of thumb, we are looking for a lower value in the standard error relative to the size of the coefficient.”</p>
 <p>To calculate standard errors, for each variable you can use a formula similar to this:</p>
@@ -1479,8 +1485,8 @@ Multiple palettes called "rd_yl_bu" found: "brewer.rd_yl_bu", "matplotlib.rd_yl_
 <p>You can be confident that in your sample, nearly all of the time, that is a real and reliable coefficient value.</p>
 </section>
 </section>
-<section id="including-spatial-features" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="including-spatial-features"><span class="header-section-number">3.6</span> Including spatial features</h2>
+<section id="including-spatial-features" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="including-spatial-features"><span class="header-section-number">4.6</span> Including spatial features</h2>
 <p>I mentioned at the start we could also try and include some spatial features within our model - for example the density of shops that sell tobacco? In a sense this is similar to what is termed a <strong>spatially omitted covariate</strong>… typically this means that the nearer something is the more influence it might have on our model (e.g.&nbsp;parks and house prices?).</p>
 <p>However, we could only really calculate distance to tobacco shops from the centroid of the territorial authority as a new independent variable. But instead we could use density of shops per territorial authority!</p>
 <p>Here, i will use open street map to calculate a density. I have downloaded the data from <a href="https://download.geofabrik.de/australia-oceania/new-zealand.html">Geofabrik</a></p>
@@ -1931,13 +1937,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./02_point_patterns.html" class="pagination-link" aria-label="Point patterns and autocorrelation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Point patterns and autocorrelation</span></span>
+      <a href="./03_obesity.html" class="pagination-link" aria-label="Exploring the Spatial Distribution of Points in the Presence of Covariates - Fast-Food Outlets and Schools in London">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exploring the Spatial Distribution of Points in the Presence of Covariates - Fast-Food Outlets and Schools in London</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./05_food_bank_accessibility.html" class="pagination-link" aria-label="Food bank accessibility">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Food bank accessibility</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Food bank accessibility</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

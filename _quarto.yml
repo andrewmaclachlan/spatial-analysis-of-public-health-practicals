@@ -10,7 +10,7 @@ book:
     - software.qmd
     - 01_geographic_data.qmd
     - 02_point_patterns.qmd
-#    - 03_obesity.qmd
+    - 03_obesity.qmd
     - 04_spatial_models.qmd
     - 05_food_bank_accessibility.qmd
     - 06_datasets.qmd
