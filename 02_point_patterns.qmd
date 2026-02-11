@@ -97,6 +97,8 @@ The questions we want to answer are:
 
 2.  Are the values (in this case the density of pharmacies) similar (or dissimilar) across the wards of London.
 
+For this practical we are considering **pharmacies as a single point in time** (i.e. assuming that they will always be available when needed). However, some [recent analysis Dr Robin Wilson](https://blog.rtwilson.com/pharmacy-late-night-opening-hours-analysis-featured-in-the-financial-times/) indicates that between 2022 and 2025, pharmacies open past 9pm on a week day has decreased by 95%, with some areas having very poor access. Additional methods such as [stdbscan](https://miboraminima.github.io/stdbscan/) permits a temporal dimension but is beyond our scope here.
+
 ## Data
 
 Load our packages
