@@ -403,11 +403,15 @@ joined_data_wide <- joined_data %>%
   select(lsoa11cd, general_health_6_categories, observation, usualres, hholdres, popden)%>%
   # move the general health from 1 column to a column for each category
   tidyr::pivot_wider(.,
-#    id_cols=1:8,
+  # note if an ID is not set then all columns not in names_from are treated as ID
+  # we could set the ID as the LSOA but then this would drop usualres, hholdres and popden which would have to be re-joined (see below).
+    id_cols=lsoa11cd,
     names_from = general_health_6_categories,
     values_from = observation)%>%
     clean_names(.)
 ```
+
+This says there should be one observation per (lsoa11cd, general_health_6_categories)
 
 When we make the tibble we lose the geometry column and so our data becomes non spatial again...really we could have done our wrangling first and then conducted a join! This will create a bit of a mess with columns too (as we already have some), so we will need to select the ones we want...
 
@@ -416,7 +420,7 @@ joined_data_wide_joined <- LSOAs %>%
   left_join(., 
             joined_data_wide,
             by = c("lsoa11cd" = "lsoa11cd"))%>%
-    select(lsoa11cd, msoa11cd, usualres.x, hholdres.x, popden.x, does_not_apply, very_good_health, good_health, fair_health, bad_health, very_bad_health)
+    select(lsoa11cd, msoa11cd, usualres, hholdres, popden, does_not_apply, very_good_health, good_health, fair_health, bad_health, very_bad_health)
 
 ```
 
@@ -426,7 +430,7 @@ Once we have the wide data we can compute other metrics - this is especially imp
 
 ```{r}
 joined_data_wide_joined_map <- joined_data_wide_joined%>%
-  mutate(percent_very_bad = (very_bad_health/usualres.x)*100)%>%
+  mutate(percent_very_bad = (very_bad_health/usualres)*100)%>%
   mutate(percent_very_bad = round(percent_very_bad, digits=2))
 
 ```
@@ -513,7 +517,7 @@ Calculate the percentages
 
 ```{r}
 MSOA_data_percent <- MSOA_data%>%
-  mutate(percent_very_bad = (very_bad_health/usualres.x)*100)%>%
+  mutate(percent_very_bad = (very_bad_health/usualres)*100)%>%
   mutate(percent_very_bad = round(percent_very_bad, digits=2))
 
 ```
@@ -533,7 +537,7 @@ MSOA_joined <- MSOAs %>%
   left_join(., 
             MSOA_data_percent,
             by = c("msoa11cd" = "msoa11cd"))%>%
-    select(msoa11cd, msoa11cd, usualres, hholdres, popden, does_not_apply, very_good_health, good_health, fair_health, bad_health, very_bad_health, percent_very_bad)
+    select(msoa11cd, msoa11cd, usualres.x, hholdres.x, popden.x, does_not_apply, very_good_health, good_health, fair_health, bad_health, very_bad_health, percent_very_bad)
 ```
 
 Map the MSOAs
